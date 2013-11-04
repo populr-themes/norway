@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Name of yur theme -->
+  <title>Norway</title>
+
+  <palette class="palette-default" name="Malibu" preview="#66b5f2">
+  <palette class="palette-sulu" name="Sulu" preview="#bcf266">
+  <palette class="palette-tango" name="Tango" preview="#f36d24">
+  <palette class="palette-custom" preview="custom">
+
+  <!-- Add any styles your theme requires here -->
+  <link rel="stylesheet/less" type="text/css" href="/styles/main.less">
+  <!-- This script loads the Populr theming engine. Populr will automatically
+       remove it at runtime. -->
+  <script src="http://populr.me/assets/developers/themer.js"></script>
+  <!-- Add any javscript your theme requires here -->
+  <script src="/js/tooltipsy.min.js"></script>
+  <script src="/js/main.js"></script>
+</head>
+<body>
+  <!-- Put your theme's inside this script tag. The script tag will
+       prevent issues with quote escaping and invalid markup. -->
+  <script id="theme" type="text/x-handlebars-template">
+    {{logo height="100"}}
+    {{pop_links}}
+    <div id="header">
+      {{{title}}}
+      {{sharing}}
+    </div>
+    <div id="header-separator">
+      <div class="under">&nbsp;</div>
+      <div class="over">&nbsp;</div>
+    </div>
+    {{#region "columnizer" id="main-region" max_cols="3" dummy_content="E-2,T-1,T-1|D-1|D-4|D-3,I-1,T-1|T-1,I-1|T-1|I-1,I-1,I-1|I-1,I-1|I-1" default_content="I-1,T-1"}}
+
+      {{#asset "text" size="1"}}
+        {{{title}}}
+        {{{body}}}
+      {{/asset}}
+      {{#asset "text" size="2"}}
+        {{{title}}}
+        {{{body}}}
+      {{/asset}}
+      {{#asset "text" size="3"}}
+        {{{title}}}
+        {{{body}}}
+      {{/asset}}
+
+      {{#asset "imagegroup" size="1"}}
+        {{{title}}}
+        {{{imageslider images width="678" height="508" prevnext-enabled=true fx="scrollHorz"}}}
+        {{{description}}}
+      {{/asset}}
+      {{#asset "imagegroup" size="2"}}
+        {{{title}}}
+        {{{imageslider images width="318" height="238" prevnext-enabled=true fx="scrollHorz"}}}
+        {{{description}}}
+      {{/asset}}
+      {{#asset "imagegroup" size="3"}}
+        {{{title}}}
+        <div class="images">
+        {{#if_many images}}
+          {{#each images}}
+            <div class="slide">
+              {{#if link}}
+                <a href="{{{link}}}"><img alt="{{{title}}}" src="{{{resize original_url width=198 height=61}}}" width="198" height="61" /></a>
+              {{else}}
+                <a href="{{{original_url}}}" class="fancybox"><img alt="{{{title}}}" src="{{{resize original_url width=198 height=61}}}" width="198" height="61" /></a>
+              {{/if}}
+            </div>
+          {{/each}}
+        {{else}}
+          <div class="slide">
+          {{#each images}}
+            {{#if link}}
+              <a href="{{{link}}}"><img alt="{{{title}}}" src="{{{resize original_url width=198 height=124}}}" width="198" height="124" /></a>
+            {{else}}
+              <a href="{{{original_url}}}" class="fancybox"><img alt="{{{title}}}" src="{{{resize original_url width=198 height=124}}}" width="198" height="124" /></a>
+            {{/if}}
+          {{/each}}
+          </div>
+        {{/if_many}}
+        </div>
+        {{{description}}}
+      {{/asset}}
+
+      {{#asset "videogroup" size="1"}}
+        {{{title}}}
+        {{{videoplayer videos width="678" height="508" resolution="large"}}}
+        {{{description}}}
+      {{/asset}}
+      {{#asset "videogroup" size="2"}}
+        {{{title}}}
+        {{{videoplayer videos width="318" height="238" resolution="medium"}}}
+        {{{description}}}
+      {{/asset}}
+      {{#asset "videogroup" size="3"}}
+        {{{title}}}
+        {{{videoplayer videos width="198" height="148" resolution="small"}}}
+        {{{description}}}
+      {{/asset}}
+
+      {{#asset "documentgroup" size="1"}}
+        {{{title}}}
+        <ul class="documents">
+        {{#each documents}}
+          <li><a href="{{{original_url}}}" data-tooltipsy-content="{{{source_file_name}}} ({{{format_file_size source_file_size}}})"><div class="title"><div class="extension extension-{{{extension}}}">{{{extension}}}</div>{{{title}}}</div><div class="download">download</div></a></li>
+        {{/each}}
+        </ul>
+        {{{description}}}
+      {{/asset}}
+      {{#asset "documentgroup" size="2"}}
+        {{{title}}}
+        <ul class="documents">
+        {{#each documents}}
+          <li><a href="{{{original_url}}}" data-tooltipsy-content="{{{source_file_name}}} ({{{format_file_size source_file_size}}})"><div class="extension extension-{{{extension}}}">{{{extension}}}</div>{{{title}}}</a></li>
+        {{/each}}
+        </ul>
+        {{{description}}}
+      {{/asset}}
+      {{#asset "documentgroup" size="3"}}
+        {{{title}}}
+        <ul class="documents">
+        {{#each documents}}
+          <li><a href="{{{original_url}}}" data-tooltipsy-content="{{{source_file_name}}} ({{{format_file_size source_file_size}}})"><div class="extension extension-{{{extension}}}">{{{extension}}}</div>{{{title}}}</a></li>
+        {{/each}}
+        </ul>
+        {{{description}}}
+      {{/asset}}
+
+      {{#asset "embedgroup" size="1" width="700"}}
+        {{{title}}}
+        {{#each embeds}}
+          {{{html}}}
+        {{/each}}
+        {{{description}}}
+      {{/asset}}
+      {{#asset "embedgroup" size="2" width="340"}}
+        {{{title}}}
+        {{#each embeds}}
+          {{{html}}}
+        {{/each}}
+        {{{description}}}
+      {{/asset}}
+      {{#asset "embedgroup" size="3" width="220"}}
+        {{{title}}}
+        {{#each embeds}}
+          {{{html}}}
+        {{/each}}
+        {{{description}}}
+      {{/asset}}
+
+    {{/region}}
+
+    <div id="footer-separator"></div>
+    {{#region "columnizer" id="footer-region" max_cols="2" dummy_content="D-3,T-1|D-2|I-1,T-1" default_content="T-1,I-1"}}
+
+      {{#asset "text" size="1"}}
+        {{{title}}}
+        {{{body}}}
+      {{/asset}}
+      {{#asset "text" size="2"}}
+        {{{title}}}
+        {{{body}}}
+      {{/asset}}
+      {{#asset "text" size="3"}}
+        {{{title}}}
+        {{{body}}}
+      {{/asset}}
+
+      {{#asset "imagegroup" size="1"}}
+        {{{title}}}
+        {{{imageslider images width="678" height="508" prevnext-enabled=true fx="scrollHorz"}}}
+        {{{description}}}
+      {{/asset}}
+      {{#asset "imagegroup" size="2"}}
+        {{{title}}}
+        {{{imageslider images width="318" height="238" prevnext-enabled=true fx="scrollHorz"}}}
+        {{{description}}}
+      {{/asset}}
+
+      {{#asset "videogroup" size="1"}}
+        {{{title}}}
+        {{{videoplayer videos width="678" height="508" resolution="large"}}}
+        {{{description}}}
+      {{/asset}}
+      {{#asset "videogroup" size="2"}}
+        {{{title}}}
+        {{{videoplayer videos width="318" height="238" resolution="medium"}}}
+        {{{description}}}
+      {{/asset}}
+
+      {{#asset "documentgroup" size="1"}}
+        {{{title}}}
+        <ul class="documents">
+        {{#each documents}}
+          <li><a href="{{{original_url}}}" data-tooltipsy-content="{{{source_file_name}}} ({{{format_file_size source_file_size}}})"><div class="title"><div class="extension-wrapper"><div class="extension extension-{{{extension}}}">{{{extension}}}</div></div>{{{title}}}</div><div class="download">download</div></a></li>
+        {{/each}}
+        </ul>
+        {{{description}}}
+      {{/asset}}
+      {{#asset "documentgroup" size="2"}}
+        {{{title}}}
+        <ul class="documents">
+        {{#each documents}}
+          <li><a href="{{{original_url}}}" data-tooltipsy-content="{{{source_file_name}}} ({{{format_file_size source_file_size}}})"><div class="extension-wrapper"><div class="extension extension-{{{extension}}}">{{{extension}}}</div></div>{{{title}}}</a></li>
+        {{/each}}
+        </ul>
+        {{{description}}}
+      {{/asset}}
+
+      {{#asset "embedgroup" size="1" width="700"}}
+        {{{title}}}
+        {{#each embeds}}
+          {{{html}}}
+        {{/each}}
+        {{{description}}}
+      {{/asset}}
+      {{#asset "embedgroup" size="2" width="340"}}
+        {{{title}}}
+        {{#each embeds}}
+          {{{html}}}
+        {{/each}}
+        {{{description}}}
+      {{/asset}}
+
+    {{/region}}
+
+  </script>
+</body>
+</html>

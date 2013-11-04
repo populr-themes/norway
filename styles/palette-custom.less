@@ -1,0 +1,6 @@
+@header-color: @custom-color;
+
+#pop a {
+  @s: saturation(@header-color);
+  color: ~`parseInt("@{s}", 10) > 50 ? "@{header-color}" : "@{body-color}"`;
+}

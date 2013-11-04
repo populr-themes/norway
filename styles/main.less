@@ -1,0 +1,492 @@
+// Your entire stylesheet should be nested in the "html .themed" selector. This 
+// prevents your theme from accidentally overriding any styles in the Pop editor. 
+// Also, some javascript libraries (e.g. fancybox) append dom elements directly 
+// to the body. Add the ".themed" class to those elements and you can style them 
+// here as well. It's not a great solution, but at least it works!
+
+@import 'preboot';
+@import 'variables';
+
+@pop-width: 780px;
+@padding-width: 40px;
+@content-width: 700px;
+@half-moon-height: 67px;
+@baseline: 20px;
+@shadow-color: desaturate(darken(@header-color, 35%), 20%);
+@body-color: #333;
+
+.color-switch(@color, @percentage, @light, @dark) when (lightness(@color) >= @percentage) {
+  color: @dark;
+}
+
+.color-switch(@color, @percentage, @light, @dark) when (lightness(@color) < @percentage) {
+  color: @light;
+}
+
+.shadow-switch(@color, @percentage) when (lightness(@color) >= @percentage) {
+  text-shadow: 2px 3px desaturate(darken(@color, 20%), 20%);
+}
+
+.shadow-switch(@color, @percentage) when (lightness(@color) < @percentage) {
+  text-shadow: 2px 3px desaturate(darken(@color, 35%), 20%);
+}
+
+#reset > .global-reset();
+
+body {
+  background-color: #fff;
+  font-family: Verdana, sans-serif;
+  font-size: 13px;
+  line-height: @baseline;
+  color: @body-color;
+}
+
+#pop {
+  width: @pop-width;
+  margin: 80px auto 0 auto;
+  overflow: visible;
+}
+
+.has-logo #pop {
+  margin-top: 40px;
+}
+
+#pop-logo {
+  margin-bottom: 20px;
+}
+
+.has-logo.has-links #pop-logo {text-align: left; margin-bottom: 0;}
+
+#main-content-inner {
+  overflow: visible;
+  width: @pop-width;
+  .box-shadow(0 0 3px rgba(0,0,0,0.4));
+}
+
+#header, #footer-region {
+  margin: 0 auto;
+  background: @header-color url("@{base-url}/images/header-overlay.png") repeat bottom center;
+  padding: (@padding-width / 2) @padding-width;
+}
+
+#header {
+  .box-shadow(inset 0 3px 5px rgba(255,255,255,0.2));
+}
+
+.has-title #header {
+  min-height: 80px;
+}
+
+#header-separator {
+  position: relative;
+  width: 802px;
+  margin-left: -((802px - @pop-width) / 2);
+  height: @half-moon-height;
+  .under {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -(@half-moon-height * 3) / 2;
+    background: @header-color url("@{base-url}/images/header-overlay.png") repeat top center;
+    width: @half-moon-height * 3;
+    height: @half-moon-height;
+    z-index: 0;
+  }
+  .over {
+    position: absolute;
+    background: transparent url("@{base-url}/images/bg-top.png") no-repeat top center;
+    z-index: 1;
+    width: 100%;
+    height: @half-moon-height;
+  }
+}
+
+#footer-region {
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+#footer-separator {
+  margin: 0 auto;
+  height: 20px;
+  background: transparent url("@{base-url}/images/footer-top.png") repeat-x top left;
+  border: 0;
+  margin-bottom: -6px;
+  z-index: 2;
+  position: relative;
+}
+
+a {
+  @s: saturation(@header-color);
+  color: ~`parseInt("@{s}", 10) > 50 ? "@{header-color}" : "@{body-color}"`;
+}
+
+#footer-region a {
+  .color-switch(@header-color, 50%, #fff, @body-color) !important;
+}
+
+#pop-title {
+  font-family: @headline-font-family;
+  font-weight: @headline-font-weight;
+  font-size: 60px;
+  line-height: 80px;
+  @l: lightness(@header-color);
+  @lv: ~`(Math.floor(parseInt("@{l}", 10) / 85)) ? "#747474" : "#fff"`;
+  color: @lv;
+  text-align: center;
+  .shadow-switch(@header-color, 50%);
+  a {
+    color: #fff;
+  }
+}
+
+#main-region, #custom-content {
+  margin: 0 auto;
+  padding: 32px @padding-width @padding-width @padding-width;
+  background: url("@{base-url}/images/bg.png") repeat-y top center;
+}
+
+.columnizer-row {
+  margin-top: @baseline * 2;
+  margin-bottom: 0;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.col-width(@cols) {
+  width: (@content-width - (20px * (@cols - 1))) / @cols !important;
+}
+
+.columnizer-cols2 .columnizer-col {
+  .col-width(2);
+  margin-left: 20px !important;
+}
+
+.columnizer-cols3 .columnizer-col {
+  .col-width(3);
+  margin-left: 20px !important;
+}
+
+.asset-title {
+  font-family: @headline-font-family;
+  font-weight: @headline-font-weight;
+  font-size: 18px;
+  line-height: @baseline;
+  margin-bottom: @baseline / 2;
+  color: #747474;
+}
+
+.asset-type-imagegroup a.fb {
+  display: block;
+}
+
+.asset-type-imagegroup .images {
+  overflow: hidden;
+  .clearfix;
+}
+
+.asset-type-imagegroup .images, .asset-type-imagegroup .single-image, .asset-type-imagegroup img {
+  display: block;
+}
+
+.asset-type-imagegroup .populr-image-slider, .asset-type-imagegroup .single-image, .asset-type-videogroup .populr-video-player, #footer-region .documents > li .extension-wrapper, .asset-size-3 .images {
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #bbb;
+  .box-shadow(0 0 6px rgba(0, 0, 0, 0.35));
+}
+
+.asset-type-imagegroup .single-image {
+  margin-top: 5px;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.asset-type-imagegroup .single-image .images > a {
+  margin-top: 2px;
+  &:first-child { margin-top: 0; }
+}
+
+.asset-type-imagegroup .grid .images {
+  margin-left: -8px;
+  margin-top: -8px;
+  overflow: visible;
+}
+
+.asset-type-imagegroup .grid .images > a {
+  float: left;
+  margin: 8px 0 0 8px;
+  border: 1px solid #bbb;
+  padding: 4px;
+  background: #fff;
+  .box-shadow(0 0 3px rgba(0, 0, 0, 0.35));
+}
+
+.asset .description {
+  padding: @baseline / 2 0 @baseline / 2 0;
+}
+
+.asset-type-text .body, .asset .description {
+  ul, ol {
+    margin: (@baseline / 2) 0 (@baseline / 2) 1em;
+  }
+  ul li {
+    list-style-type: disc;
+    margin-left: 5px;
+  }
+  ol li {
+    list-style-type: decimal;
+    margin-left: 10px;
+  }
+}
+
+@sprite-cols: 10;
+@sprite-width: 42px;
+@sprite-height: 42px;
+@filetypes: "['file','zip','xls','wps','wpd','wmv','wma','wav','vob','vcd','txt','ttf','torrent','tif','tgz','swf','ss','sql','sitx','sit','ses','sea','rtf','rmvb','rm','rar','ram','qxd','qbw','qbb','pub','ptb','pst','psd','ps','ppt','pps','png','pdf','ogg','msi','mpg','mpeg','mp4','mp3','mp2','mov','mid','mdb','mcd','m4v','m4p','m4b','m4a','log','lnk','jpg','jpeg','jar','iso','indd','ifo','html','htm','hqx','gz','gif','flv','fla','exe','eps','eml','dwg','dvf','dss','doc','dmg','dll','divx','dat','chm','cdr','cdl','cda','cbr','cab','bup','bmp','bin','bat','avi','asx','asf','amr','aiff','aif','ai','ace','7z','3gp']";
+@filetypes-length: ~`eval(@{filetypes}).length`;
+
+.file-extensions(@index) when (@index > 0) {
+  (~".extension-`eval(@{filetypes})[@{index} - 1]`") {
+    background-position: ~`(((@{index} - @{filetypes-length}) % @{sprite-cols}) * parseInt("@{sprite-width}", 10)) + "px"` ~`((Math.ceil((@{index} - @{filetypes-length}) / @{sprite-cols})) * parseInt("@{sprite-height}", 10)) + "px"`;
+  }
+  .file-extensions(@index - 1);
+}
+.file-extensions(0) {}
+
+
+
+
+
+
+/* ICONS PROVIDED BY medialoot.com */
+
+.documents > li {
+  border-top: 1px dotted #ccc;  
+  &:first-child {
+    border-top: none;
+  }
+  &:hover {
+    background-color: #fff;
+  }
+  a {
+    position: relative;
+    display: block;
+    padding: 20px 0 20px 0;
+    text-decoration: none;
+    .clearfix;
+  }
+  .download {
+    float: right;
+  }
+  .title {
+    float: left;
+    padding-top: 6px;
+  }
+
+  .extension {
+    background: transparent url("@{base-url}/images/file-icons.png") no-repeat;
+    .square(33px);
+    float: left;
+    margin: -6px 8px 0 0;
+    text-indent: -9999px;
+
+    @index: 1;
+    background-position: ~`(((@{index} - @{filetypes-length}) % @{sprite-cols}) * parseInt("@{sprite-width}", 10)) + "px"` ~`((Math.ceil((@{index} - @{filetypes-length}) / @{sprite-cols})) * parseInt("@{sprite-height}", 10)) + "px"`;
+  }
+  .file-extensions(100);  //we should be able to just reference filetypes-length, but there is a bug in less
+
+  .extension-pptx {
+    @index: 36;
+    background-position: ~`(((@{index} - @{filetypes-length}) % @{sprite-cols}) * parseInt("@{sprite-width}", 10)) + "px"` ~`((Math.ceil((@{index} - @{filetypes-length}) / @{sprite-cols})) * parseInt("@{sprite-height}", 10)) + "px"`;
+  }
+  .extension-docx {
+    @index: 76;
+    background-position: ~`(((@{index} - @{filetypes-length}) % @{sprite-cols}) * parseInt("@{sprite-width}", 10)) + "px"` ~`((Math.ceil((@{index} - @{filetypes-length}) / @{sprite-cols})) * parseInt("@{sprite-height}", 10)) + "px"`;
+  }
+  .extension-xlsx {
+    @index: 3;
+    background-position: ~`(((@{index} - @{filetypes-length}) % @{sprite-cols}) * parseInt("@{sprite-width}", 10)) + "px"` ~`((Math.ceil((@{index} - @{filetypes-length}) / @{sprite-cols})) * parseInt("@{sprite-height}", 10)) + "px"`;
+  }
+
+}
+
+.documents .download, .tooltipsy {
+  background: @header-color;
+  color: #fff;
+  .box-shadow(2px 3px 0px @shadow-color);
+  padding: 5px;
+  font-size: 80%;
+}
+
+.tooltipsy {
+  &:before {
+    content: '';
+    position: absolute;
+    border: 10px solid transparent;
+    border-left-color: @shadow-color;
+    bottom: -10px;
+    left: 50%;
+    z-index: -1;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    border: 10px solid transparent;
+    border-right-color: @shadow-color;
+    bottom: -10px;
+    right: 50%;
+    z-index: -1;
+  }
+}
+
+#footer-region {
+  .color-switch(@header-color, 50%, #fff, @body-color);
+  & .asset-title {
+    .color-switch(@header-color, 60%, #fff, #747474);
+  }
+}
+
+#footer-region .documents .download, .tooltipsy-footer {
+  background-color: #fff;
+  color: @header-color;
+}
+
+#footer-region .documents > li {
+  padding-top: 16px;
+  border-color: #747474;
+  &:hover {
+    background: #fff;
+    background: rgba(255,255,255,0.4);
+  }
+  a {
+    color: #333;
+  }
+  .extension {
+    float: none;
+    margin: 0;
+  }
+  .extension-wrapper {
+    background-color: #fff;
+    .square(33px);
+    float: left;
+    margin: -16px 8px 0 0;
+    padding: 10px 9px 10px 10px;  // 9px visually balances the icon better
+  }
+  .download {
+    margin-top: 1px;
+  }
+}
+
+.embedded-object {
+  margin-top: @baseline;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.asset-type-videogroup .playlist {
+  text-align: center;
+  line-height: 0;
+  li {
+    display: inline-block;
+    margin: 10px 5px 0 0;
+    .opacity(75);
+    &:hover {
+      .opacity(100);
+    }
+  }
+}
+
+.ie7 .region {
+  zoom: 1;
+}
+
+#pop-links {
+  margin: -35px 0 0 10px;
+  text-align: right;
+  li {
+    margin: 0 0 0 5px;
+  }
+}
+
+#populr > #image-slider-themes > .basic(@bg-color: fade(#fff, 50%));
+
+
+.asset-type-imagegroup.asset-size-3 .images .slide {position: relative;}
+
+.populr-image-slider, .asset-type-imagegroup.asset-size-3 .images {
+  cursor: pointer;
+
+  .slide {
+    cursor: pointer;
+  }
+  .magnify {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    .square(25px);
+    margin-top: -12px;
+    margin-left: -12px;
+    background: @header-color url("@{base-url}/images/magnify.png") no-repeat center center;
+    text-indent: -9999px;
+    .box-shadow(2px 3px 0px @shadow-color);
+  }
+}
+
+// portrait and landscape phone
+@media screen and (max-width: 768px) {
+  
+  #populr > .mobile-reset();
+
+  #pop {
+    margin-top: 3%;
+    width: 94% !important;
+  }
+  
+  #pop-links {margin-top: 0;}
+
+  #pop-title {
+    font-size: 2.5em;
+    line-height: 1.5em;
+  }
+
+  #header {
+    padding: 20px 10px;
+    min-height: auto;
+  }
+  #header-separator {
+    width: 100%;
+    height: 20px;
+    margin-left: 0;
+    background: transparent url("@{base-url}/images/footer-top.png") repeat-x top left;
+    z-index: 1000;
+    .over, .under {
+      display: none;
+    }
+  }
+  #main-region {
+    padding: 22px 15px 15px 15px;
+    margin-top: -6px;
+  }
+  #footer-region {
+    padding: 15px;
+  }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+  .region {
+    background-size: contain;
+  }
+
+  #header, #footer-region {
+    background-size: 8px 6px;
+  }
+
+  .extension {
+    display: none;
+  }
+}
