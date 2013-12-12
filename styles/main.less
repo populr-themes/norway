@@ -37,7 +37,7 @@ body {
   background-color: #fff;
   font-family: Verdana, sans-serif;
   font-size: 13px;
-  line-height: @baseline;
+  line-height: 1.538;
   color: @body-color;
 }
 
@@ -129,7 +129,7 @@ a {
   font-family: @headline-font-family;
   font-weight: @headline-font-weight;
   font-size: 60px;
-  line-height: 80px;
+  line-height: 1.33;
   @l: lightness(@header-color);
   @lv: ~`(Math.floor(parseInt("@{l}", 10) / 85)) ? "#747474" : "#fff"`;
   color: @lv;
@@ -172,7 +172,7 @@ a {
   font-family: @headline-font-family;
   font-weight: @headline-font-weight;
   font-size: 18px;
-  line-height: @baseline;
+  line-height: 1.11;
   margin-bottom: @baseline / 2;
   color: #747474;
 }
